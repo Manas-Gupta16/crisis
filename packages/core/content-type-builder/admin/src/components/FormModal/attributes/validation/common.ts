@@ -195,7 +195,7 @@ const isMinSuperiorThanMax = <
       return true;
     }
 
-    return Math.max(...bounds) !== toNumber(min);
+    return bounds[0] <= bounds[1];
   },
 });
 
