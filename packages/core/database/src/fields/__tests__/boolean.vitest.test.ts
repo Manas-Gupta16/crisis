@@ -16,6 +16,7 @@ describe('BooleanField', () => {
       ['1', true],
       [1, true],
       ['f', false],
+      ['false', false],
       ['0', false],
       [0, false],
     ])('converts %p to %p', (input, expected) => {
