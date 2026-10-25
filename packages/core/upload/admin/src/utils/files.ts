@@ -23,7 +23,7 @@ export function formatBytes(receivedBytes: number | string, decimals = 0) {
     return '0B';
   }
 
-  let scaled = Math.abs(realBytes);
+  let scaled = Math.abs(realBytes) * BYTE_UNIT_STEP;
   let unitIndex = 0;
 
   while (scaled >= BYTE_UNIT_STEP && unitIndex < BYTE_UNITS.length - 1) {
