@@ -41,13 +41,12 @@ export const updateLastUsedAt = async (apiToken: {
   const currentDate = new Date();
   const lastUsedAt = apiToken.lastUsedAt != null ? parseISO(apiToken.lastUsedAt) : null;
 
-  // The timestamp is refreshed at most once an hour: the next write falls due
-  // an hour from this request, so a timestamp sitting before it still belongs
-  // to the window that is running.
-  const refreshDueAt = addHours(currentDate, LAST_USED_REFRESH_INTERVAL_IN_HOURS);
+  if (lastUsedAt !== null) {
+    const refreshDueAt = addHours(lastUsedAt, LAST_USED_REFRESH_INTERVAL_IN_HOURS);
 
-  if (lastUsedAt !== null && isBefore(lastUsedAt, refreshDueAt)) {
-    return;
+    if (isBefore(currentDate, refreshDueAt)) {
+      return;
+    }
   }
 
   await strapi.db.query('admin::api-token').update({
