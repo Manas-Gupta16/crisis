@@ -75,7 +75,10 @@ export const RelationNaturePicker = ({
   const leftDisplayedValue = pluralize(leftTarget, hasManyTargets ? 2 : 1);
   const restrictedRelations = get(contentTypes, [target, 'restrictRelationsTo'], null);
 
-  const rightDisplayedValue = pluralize(rightTarget, hasManySources ? 2 : 1);
+  const rightDisplayedValue = pluralize(
+    rightTarget,
+    hasManySources || normalizedRelationType.endsWith('many') ? 2 : 1
+  );
 
   if (!relationType) {
     return null;
